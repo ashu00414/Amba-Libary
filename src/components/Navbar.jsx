@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Shield, User, LogOut, Menu, X, MessageSquareQuote } from 'lucide-react';
+import logoImg from '../assets/logo.png';
 
 export default function Navbar({ 
   onOpenAdminLogin, 
@@ -18,7 +19,7 @@ export default function Navbar({
         <a href="#home" className="flex items-center space-x-3 group cursor-pointer">
           <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 shadow-xs flex items-center justify-center p-1 group-hover:border-slate-300 transition-colors">
             <img 
-              src="/logo.png" 
+              src={logoImg} 
               alt="Amba Library Logo" 
               className="w-full h-full object-contain"
             />

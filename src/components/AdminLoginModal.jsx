@@ -111,7 +111,7 @@ export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess }) {
 
           <div className="flex items-center justify-between text-[11px] text-slate-500 pt-0.5">
             <span>Staff Administration</span>
-            <span className="text-slate-400 font-mono">Strictly Confidential</span>
+            <span className="text-slate-400 font-mono text-[10px]">ID: admin • Pass: admin2026</span>
           </div>
 
           <button

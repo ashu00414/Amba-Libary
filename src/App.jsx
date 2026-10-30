@@ -9,6 +9,7 @@ import AdminSeatManagement from './components/AdminSeatManagement';
 import StudentDashboard from './components/StudentDashboard';
 import { getStoredSession, saveStoredSession, clearStoredSession } from './data/libraryStore';
 import { X, MapPin, Phone, Mail, Clock, CheckCircle2, BookOpen, PhoneCall } from 'lucide-react';
+import logoImg from './assets/logo.png';
 
 export default function App() {
   const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
@@ -98,7 +99,7 @@ export default function App() {
           <div className="md:col-span-6 space-y-4 text-left">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center border border-slate-700 shadow-sm overflow-hidden">
-                <img src="/logo.png" alt="Amba Library Logo" className="w-full h-full object-contain" />
+                <img src={logoImg} alt="Amba Library Logo" className="w-full h-full object-contain" />
               </div>
               <span className="font-black text-xl text-white tracking-tight font-heading">
                 AMBA LIBRARY

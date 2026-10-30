@@ -23,6 +23,7 @@ import {
   DAY_SHIFTS, 
   NIGHT_SHIFTS 
 } from '../data/libraryStore';
+import logoImg from '../assets/logo.png';
 import FeeReceiptModal from './FeeReceiptModal';
 
 export default function StudentDashboard({ studentUser, onBackToLanding, onLogout }) {
@@ -243,7 +244,7 @@ export default function StudentDashboard({ studentUser, onBackToLanding, onLogou
           
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 rounded-xl bg-white border border-slate-700/80 p-0.5 shadow-xs flex items-center justify-center overflow-hidden">
-              <img src="/logo.png" alt="Amba Library Logo" className="w-full h-full object-contain" />
+              <img src={logoImg} alt="Amba Library Logo" className="w-full h-full object-contain" />
             </div>
             <div>
               <div className="flex items-center space-x-2">

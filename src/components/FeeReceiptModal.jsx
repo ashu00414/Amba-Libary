@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Printer, CheckCircle2, ShieldCheck, Calendar, Phone, Mail, User, BookOpen, Clock, Download, Receipt } from 'lucide-react';
 import { DAY_SHIFTS, NIGHT_SHIFTS } from '../data/libraryStore';
+import logoImg from '../assets/logo.png';
 
 export default function FeeReceiptModal({ isOpen, onClose, student }) {
   if (!isOpen || !student) return null;
@@ -55,7 +56,7 @@ export default function FeeReceiptModal({ isOpen, onClose, student }) {
           <div className="border-b-2 border-slate-900 pb-4 mb-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center space-x-3">
               <div className="w-12 h-12 rounded-xl bg-white text-slate-900 flex items-center justify-center p-1 border border-slate-300 shadow-xs overflow-hidden">
-                <img src="/logo.png" alt="Amba Library Logo" className="w-full h-full object-contain" />
+                <img src={logoImg} alt="Amba Library Logo" className="w-full h-full object-contain" />
               </div>
               <div>
                 <h1 className="font-bold text-xl tracking-tight text-slate-900 font-heading">
