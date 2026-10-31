@@ -28,18 +28,31 @@ export const DEFAULT_ADMIN_PROFILE = {
 
 export function getStoredAdminProfile() {
   try {
-    const data = localStorage.getItem(STORAGE_KEY_ADMIN);
-    if (data) return JSON.parse(data);
+    if (typeof localStorage !== 'undefined') {
+      const data = localStorage.getItem(STORAGE_KEY_ADMIN);
+      if (data) {
+        const parsed = JSON.parse(data);
+        if (parsed && parsed.password === 'admin123') {
+          parsed.password = 'admin2026';
+          saveStoredAdminProfile(parsed);
+        }
+        return parsed;
+      }
+    }
   } catch (e) {
     console.error(e);
   }
-  saveStoredAdminProfile(DEFAULT_ADMIN_PROFILE);
+  if (typeof localStorage !== 'undefined') {
+    saveStoredAdminProfile(DEFAULT_ADMIN_PROFILE);
+  }
   return DEFAULT_ADMIN_PROFILE;
 }
 
 export function saveStoredAdminProfile(profile) {
   try {
-    localStorage.setItem(STORAGE_KEY_ADMIN, JSON.stringify(profile));
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem(STORAGE_KEY_ADMIN, JSON.stringify(profile));
+    }
     pushAdminProfileToFirestore(profile);
   } catch (e) {
     console.error(e);
@@ -60,31 +73,22 @@ export function authenticateAdmin(identifier, password) {
 
   // Allow login by email, username 'admin', or Staff ID 'ADM-001'
   const isMatchId = 
-    profile.email.toLowerCase() === cleanId ||
+    (profile.email && profile.email.toLowerCase() === cleanId) ||
     cleanId === 'admin' ||
-    profile.id.toLowerCase() === cleanId;
+    cleanId === 'admin@amba-library.edu' ||
+    (profile.id && profile.id.toLowerCase() === cleanId) ||
+    cleanId === 'adm-001';
 
-  if (isMatchId && profile.password === inputPass) {
-    return {
-      role: 'admin',
-      name: profile.name,
-      id: profile.id,
-      email: profile.email,
-      phone: profile.phone
-    };
-  }
+  // Active password from profile settings (defaults to 'admin2026')
+  const activePassword = profile.password || 'admin2026';
 
-  // Fallback for default initial credentials if not yet customized
-  if (
-    (cleanId === 'admin@amba-library.edu' || cleanId === 'admin') &&
-    (inputPass === 'admin2026' || inputPass === 'admin123')
-  ) {
+  if (isMatchId && inputPass === activePassword) {
     return {
       role: 'admin',
       name: profile.name || 'Chief Librarian (Admin)',
       id: profile.id || 'ADM-001',
       email: profile.email || 'admin@amba-library.edu',
-      phone: profile.phone || '9876543210'
+      phone: profile.phone || '8292002249'
     };
   }
 
