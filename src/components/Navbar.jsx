@@ -16,19 +16,19 @@ export default function Navbar({
       <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-16 h-16 sm:h-20 flex items-center justify-between">
         
         {/* Brand / Logo on Left with Official Image */}
-        <a href="#home" className="flex items-center space-x-2.5 sm:space-x-3 group cursor-pointer">
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white border border-slate-200 shadow-xs flex items-center justify-center p-0.5 group-hover:border-slate-300 transition-colors shrink-0 overflow-hidden">
+        <a href="#home" className="flex items-center space-x-3 sm:space-x-3.5 group cursor-pointer">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white border border-slate-200/90 shadow-xs flex items-center justify-center p-0.5 group-hover:border-slate-300 transition-colors shrink-0 overflow-hidden">
             <img 
               src={logoImg} 
               alt="Amba Library Logo" 
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain transform group-hover:scale-105 transition-transform"
             />
           </div>
           <div>
-            <div className="font-black text-[#1C1935] tracking-tight text-lg sm:text-xl font-heading leading-tight group-hover:text-black transition-colors">
+            <div className="font-black text-[#1C1935] tracking-tight text-lg sm:text-2xl font-heading leading-tight group-hover:text-black transition-colors">
               AMBA LIBRARY
             </div>
-            <span className="text-[9px] sm:text-[10px] text-slate-500 font-semibold tracking-wider uppercase block">
+            <span className="text-[10px] sm:text-[11px] text-slate-500 font-semibold tracking-wider uppercase block">
               Silent Study Space
             </span>
           </div>
