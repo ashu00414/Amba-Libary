@@ -7,7 +7,7 @@ import {
   pushFeedbacksToFirestore, 
   pushAdminProfileToFirestore,
   initCloudSync 
-} from './firebaseSync';
+} from './firebaseSync.js';
 
 export { initCloudSync };
 
