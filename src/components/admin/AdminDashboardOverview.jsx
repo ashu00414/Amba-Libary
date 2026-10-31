@@ -54,7 +54,7 @@ export default function AdminDashboardOverview({
     <div className="space-y-6">
       
       {/* 4 Stripe/Linear-Style Executive KPI Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
         
         {/* Card 1: Total Desks & Capacity */}
         <div 

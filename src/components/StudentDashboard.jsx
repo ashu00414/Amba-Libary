@@ -417,7 +417,7 @@ export default function StudentDashboard({ studentUser, onBackToLanding, onLogou
           </div>
 
           {/* Student Profile Metadata (Admission Date, Parents, Aadhar) */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-4 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 pt-4 text-xs">
             <div className="p-2.5 bg-slate-50/70 rounded-lg border border-slate-100">
               <span className="text-slate-400 block text-[10px] uppercase font-semibold">Admission Date</span>
               <span className="font-mono font-semibold text-slate-800">{currentStudent.admissionDate || currentStudent.allottedAt || 'Recent'}</span>
@@ -620,8 +620,8 @@ export default function StudentDashboard({ studentUser, onBackToLanding, onLogou
 
       {/* Seat Shift Breakdown Modal for Student */}
       {selectedSeatDetails && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="bg-white rounded-2xl max-w-md w-full p-5 shadow-xl border border-slate-200 animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto animate-in fade-in duration-150">
+          <div className="bg-white rounded-2xl max-w-md w-full p-4 sm:p-5 shadow-xl border border-slate-200 animate-in zoom-in-95 duration-200 my-auto max-h-[94vh] flex flex-col">
             <div className="flex items-center justify-between border-b pb-3 mb-3">
               <div>
                 <h4 className="font-bold text-sm text-slate-900">Desk #{selectedSeatDetails.seatNumber} Shift Availability</h4>
@@ -756,7 +756,7 @@ export default function StudentDashboard({ studentUser, onBackToLanding, onLogou
               );
             })()}
 
-            <div className="space-y-2">
+            <div className="space-y-2 overflow-y-auto flex-1 pr-1">
               {currentShiftList.map(shift => {
                 const occupantId = selectedSeatDetails[mode][shift.id];
                 const holdInfo = isShiftOnHold(selectedSeatDetails.seatNumber, mode, shift.id);
@@ -769,7 +769,7 @@ export default function StudentDashboard({ studentUser, onBackToLanding, onLogou
                 return (
                   <div
                     key={shift.id}
-                    className={`p-3 rounded-xl border flex items-center justify-between transition-all ${
+                    className={`p-3 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 transition-all ${
                       isOccupiedByMe
                         ? 'bg-indigo-50/70 border-indigo-200 shadow-2xs'
                         : isOnHoldForMe
@@ -930,7 +930,7 @@ export default function StudentDashboard({ studentUser, onBackToLanding, onLogou
 
                       if (studentHasActiveShifts && isSameDesk) {
                         return (
-                          <div className="flex items-center gap-1.5">
+                          <div className="flex flex-wrap items-center gap-1.5">
                             {/* Option 1: Add Shift to current schedule (e.g. 6-10 AM + 10-2 PM = 6 AM to 2 PM, 2 shifts, ₹1200) */}
                             <button
                               type="button"

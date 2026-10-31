@@ -119,13 +119,13 @@ export default function AdminProfileModal({ isOpen, onClose, onProfileUpdated })
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-150">
       <div 
-        className="relative w-full max-w-lg bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200/90 animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-lg bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200/90 animate-in zoom-in-95 duration-200 max-h-[96vh] sm:max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-[#0B0F19] px-6 py-4 text-white flex items-center justify-between border-b border-slate-800">
+        <div className="bg-[#0B0F19] px-4 sm:px-6 py-4 text-white flex items-center justify-between border-b border-slate-800 shrink-0">
           <div className="flex items-center space-x-3">
             <div className="w-9 h-9 rounded-xl bg-slate-800 text-amber-400 border border-slate-700 flex items-center justify-center font-bold shadow-xs">
               <ShieldCheck className="w-5 h-5" />

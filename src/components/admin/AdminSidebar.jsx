@@ -11,7 +11,8 @@ import {
   LogOut, 
   ChevronLeft, 
   ChevronRight,
-  Shield
+  Shield,
+  X
 } from 'lucide-react';
 import logoImg from '../../assets/logo.png';
 
@@ -24,7 +25,9 @@ export default function AdminSidebar({
   shiftRequests = [],
   feedbacks = [],
   isCollapsed,
-  setIsCollapsed
+  setIsCollapsed,
+  isMobileOpen,
+  setIsMobileOpen
 }) {
   // Calculate dynamic notifications
   const overdueCount = students.filter(s => {
@@ -76,42 +79,63 @@ export default function AdminSidebar({
   ];
 
   return (
-    <aside 
-      className={`bg-[#0B0F19] text-white flex flex-col justify-between border-r border-slate-800/80 transition-all duration-300 z-30 select-none ${
-        isCollapsed ? 'w-20' : 'w-64'
-      }`}
-    >
-      {/* Top Header / Branding */}
-      <div>
-        <div className="h-20 px-4 flex items-center justify-between border-b border-slate-800/80 bg-[#090D15]/80 backdrop-blur-md">
-          <div className="flex items-center space-x-3 overflow-hidden">
-            <div className="w-10 h-10 rounded-xl bg-white p-1 border border-slate-700 shadow-sm flex items-center justify-center shrink-0">
-              <img src={logoImg} alt="Amba Logo" className="w-full h-full object-contain" />
-            </div>
-            {!isCollapsed && (
-              <div className="overflow-hidden">
-                <div className="flex items-center space-x-1.5">
-                  <span className="font-black text-sm tracking-tight text-white font-heading truncate">
-                    AMBA LIBRARY
-                  </span>
-                </div>
-                <div className="text-[10px] text-amber-400 font-semibold tracking-wider uppercase flex items-center space-x-1">
-                  <Shield className="w-2.5 h-2.5 text-amber-400" />
-                  <span>Admin Console</span>
-                </div>
-              </div>
-            )}
-          </div>
+    <>
+      {/* Mobile Backdrop Overlay */}
+      {isMobileOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-xs z-40 md:hidden animate-in fade-in duration-200"
+          onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
+        />
+      )}
 
-          {/* Toggle Sidebar Width */}
-          <button
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className="w-7 h-7 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 flex items-center justify-center text-slate-400 hover:text-white transition-colors cursor-pointer shrink-0"
-            title={isCollapsed ? 'Expand Navigation' : 'Collapse Navigation'}
-          >
-            {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
-          </button>
-        </div>
+      <aside 
+        className={`bg-[#0B0F19] text-white flex flex-col justify-between border-r border-slate-800/80 transition-all duration-300 select-none
+          fixed md:static inset-y-0 left-0 z-50
+          ${isMobileOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full md:translate-x-0'}
+          ${isCollapsed ? 'md:w-20' : 'md:w-64'}
+          w-72 md:w-auto
+        `}
+      >
+        {/* Top Header / Branding */}
+        <div>
+          <div className="h-20 px-4 flex items-center justify-between border-b border-slate-800/80 bg-[#090D15]/80 backdrop-blur-md">
+            <div className="flex items-center space-x-3 overflow-hidden">
+              <div className="w-10 h-10 rounded-xl bg-white p-1 border border-slate-700 shadow-sm flex items-center justify-center shrink-0">
+                <img src={logoImg} alt="Amba Logo" className="w-full h-full object-contain" />
+              </div>
+              {(!isCollapsed || isMobileOpen) && (
+                <div className="overflow-hidden">
+                  <div className="flex items-center space-x-1.5">
+                    <span className="font-black text-sm tracking-tight text-white font-heading truncate">
+                      AMBA LIBRARY
+                    </span>
+                  </div>
+                  <div className="text-[10px] text-amber-400 font-semibold tracking-wider uppercase flex items-center space-x-1">
+                    <Shield className="w-2.5 h-2.5 text-amber-400" />
+                    <span>Admin Console</span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Mobile Close Button */}
+            <button
+              onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
+              className="md:hidden w-8 h-8 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 flex items-center justify-center text-slate-400 hover:text-white transition-colors cursor-pointer shrink-0"
+              title="Close Navigation"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            {/* Desktop Toggle Sidebar Width */}
+            <button
+              onClick={() => setIsCollapsed(!isCollapsed)}
+              className="hidden md:flex w-7 h-7 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 items-center justify-center text-slate-400 hover:text-white transition-colors cursor-pointer shrink-0"
+              title={isCollapsed ? 'Expand Navigation' : 'Collapse Navigation'}
+            >
+              {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+            </button>
+          </div>
 
         {/* Navigation Groups */}
         <div className="p-3 space-y-5 overflow-y-auto max-h-[calc(100vh-220px)] scrollbar-none">
@@ -130,7 +154,10 @@ export default function AdminSidebar({
                 return (
                   <button
                     key={item.id}
-                    onClick={() => setActiveTab(item.id)}
+                    onClick={() => {
+                      setActiveTab(item.id);
+                      if (setIsMobileOpen) setIsMobileOpen(false);
+                    }}
                     title={isCollapsed ? item.label : undefined}
                     className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer group relative ${
                       isActive
@@ -223,5 +250,6 @@ export default function AdminSidebar({
         </button>
       </div>
     </aside>
+    </>
   );
 }

@@ -286,7 +286,7 @@ export default function AdminRequestsView({
                   {/* Dynamic Action Buttons based on 3-Stage Lifecycle */}
                   {req.status === 'Pending' && (
                     <div className="space-y-2 pt-1">
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                         {/* Step 1: Approve & Put on Hold (Orange Slot) */}
                         <button
                           onClick={() => handleHold(req.id)}
@@ -333,7 +333,7 @@ export default function AdminRequestsView({
                         </p>
                       </div>
 
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                         {/* Step 2: Allot Seat & Confirm (Turns Orange to Red / Occupied) */}
                         <button
                           onClick={() => handleAllot(req.id)}

@@ -98,15 +98,15 @@ export default function SeatDetailModal({
   const formattedDeskNum = seat.seatNumber < 10 ? `0${seat.seatNumber}` : seat.seatNumber;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto animate-in fade-in duration-150">
       <div 
-        className="relative w-full max-w-xl bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200/90 my-8 animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-xl bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200/90 my-2 sm:my-8 max-h-[96vh] sm:max-h-[90vh] flex flex-col animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Executive Modal Header */}
-        <div className="bg-[#0B0F19] px-6 py-4 text-white flex items-center justify-between border-b border-slate-800">
-          <div className="flex items-center space-x-3.5">
-            <div className="w-10 h-10 rounded-xl bg-slate-800 text-amber-400 border border-slate-700 flex items-center justify-center font-mono font-bold text-base shadow-xs">
+        <div className="bg-[#0B0F19] px-4 sm:px-6 py-3.5 sm:py-4 text-white flex items-center justify-between border-b border-slate-800 shrink-0">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-xl bg-slate-800 text-amber-400 border border-slate-700 flex items-center justify-center font-mono font-bold text-base shadow-xs shrink-0">
               #{formattedDeskNum}
             </div>
             <div>
@@ -135,7 +135,7 @@ export default function SeatDetailModal({
 
         {/* Full Day Option (Day Mode) */}
         {mode === 'day' && (
-          <div className="bg-slate-50 border-b border-slate-200/80 px-6 py-3 flex items-center justify-between">
+          <div className="bg-slate-50 border-b border-slate-200/80 px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between shrink-0">
             <label className="flex items-center space-x-3 cursor-pointer select-none">
               <input
                 type="checkbox"
@@ -154,7 +154,7 @@ export default function SeatDetailModal({
               </div>
             </label>
             {vacantShiftIds.length < 4 && vacantShiftIds.length > 0 && (
-              <span className="text-[10px] text-amber-800 font-semibold bg-amber-50 ring-1 ring-amber-600/20 px-2 py-0.5 rounded">
+              <span className="text-[10px] text-amber-800 font-semibold bg-amber-50 ring-1 ring-amber-600/20 px-2 py-0.5 rounded shrink-0">
                 Partially Booked
               </span>
             )}
@@ -162,7 +162,7 @@ export default function SeatDetailModal({
         )}
 
         {/* Shift Breakdown List */}
-        <div className="p-5 space-y-2.5 max-h-[55vh] overflow-y-auto">
+        <div className="p-3.5 sm:p-5 space-y-2.5 overflow-y-auto flex-1">
           <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
             Desk Shift Schedule
           </div>
@@ -314,7 +314,7 @@ export default function SeatDetailModal({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+        <div className="px-4 sm:px-6 py-3 sm:py-3.5 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 shrink-0">
           <div className="text-xs text-slate-500 font-medium">
             {selectedShifts.length > 0 ? (
               <span className="text-slate-900 font-semibold">

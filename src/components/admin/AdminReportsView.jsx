@@ -451,7 +451,7 @@ export default function AdminReportsView({
 
             {/* Calendar Popover */}
             {isCalendarOpen && (
-              <div className="absolute left-0 sm:left-auto sm:right-0 mt-2 z-50 w-[300px] sm:w-[325px] bg-white rounded-2xl border border-slate-200/90 shadow-2xl p-3.5 text-xs animate-in fade-in zoom-in-95 duration-150">
+              <div className="absolute left-0 sm:left-auto sm:right-0 mt-2 z-50 w-[300px] sm:w-[325px] max-w-[calc(100vw-32px)] bg-white rounded-2xl border border-slate-200/90 shadow-2xl p-3.5 text-xs animate-in fade-in zoom-in-95 duration-150">
                 {/* Popover Header */}
                 <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-100">
                   <div className="flex items-center space-x-1.5">

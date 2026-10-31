@@ -19,15 +19,15 @@ export default function Hero({ onOpenStudentLogin }) {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 w-full py-8 lg:py-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-16 w-full py-6 lg:py-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
           
           {/* Left Column: AMBA LIBRARY Branding, Quotes, and ONLY Student Login */}
-          <div className="lg:col-span-5 z-10 space-y-7 text-left">
+          <div className="lg:col-span-5 z-10 space-y-6 sm:space-y-7 text-left">
             
             {/* Title: AMBA LIBRARY */}
             <div className="space-y-1">
-              <h1 className="text-6xl sm:text-7xl lg:text-[84px] font-black text-[#1C1935] tracking-tight leading-[0.98] font-heading">
+              <h1 className="text-5xl sm:text-7xl lg:text-[84px] font-black text-[#1C1935] tracking-tight leading-[0.98] font-heading">
                 AMBA<br />
                 LIBRARY
               </h1>
@@ -35,20 +35,20 @@ export default function Hero({ onOpenStudentLogin }) {
 
             {/* Inspiring Quote on Good Environment, Clean Space */}
             <div className="space-y-3 max-w-md">
-              <p className="text-[#2C2B4B] text-lg sm:text-xl font-semibold leading-snug italic">
+              <p className="text-[#2C2B4B] text-base sm:text-xl font-semibold leading-snug italic">
                 “Good Environment, Clean Space & Peaceful Ambiance for Your Deep Focus.”
               </p>
-              <p className="text-[#55596E] text-sm sm:text-base leading-relaxed font-normal">
+              <p className="text-[#55596E] text-xs sm:text-base leading-relaxed font-normal">
                 A calm, air-conditioned silent study hub equipped with high-speed internet, dedicated desks, and positive vibes to fuel your success.
               </p>
             </div>
 
             {/* ONLY Student Login Button */}
-            <div className="pt-2">
+            <div className="pt-1 sm:pt-2">
               <button
                 type="button"
                 onClick={onOpenStudentLogin}
-                className="bg-[#FCAE76] hover:bg-[#f39857] text-[#1C1935] px-10 py-4 rounded-full font-bold text-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center space-x-3 group"
+                className="w-full sm:w-auto justify-center bg-[#FCAE76] hover:bg-[#f39857] text-[#1C1935] px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-bold text-base sm:text-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center space-x-3 group"
               >
                 <div className="w-8 h-8 rounded-full bg-white/40 flex items-center justify-center">
                   <User className="w-4 h-4 text-[#1C1935]" />

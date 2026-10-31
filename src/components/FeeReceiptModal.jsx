@@ -19,13 +19,13 @@ export default function FeeReceiptModal({ isOpen, onClose, student }) {
   const formattedFee = Number(student.monthlyFee || (student.shifts?.length ? student.shifts.length * 600 : 600)).toLocaleString('en-IN');
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto print:p-0 print:bg-white print:static animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto print:p-0 print:bg-white print:static animate-in fade-in duration-150">
       
       {/* Modal Container */}
-      <div className="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border border-slate-200 overflow-hidden my-8 print:border-none print:shadow-none print:my-0 print:w-full print:max-w-none animate-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border border-slate-200 overflow-hidden my-2 sm:my-8 max-h-[96vh] sm:max-h-[90vh] flex flex-col print:border-none print:shadow-none print:my-0 print:w-full print:max-w-none print:max-h-none animate-in zoom-in-95 duration-200">
         
         {/* Top Action Bar (Hidden during Print) */}
-        <div className="bg-[#0B0F19] text-white px-6 py-3.5 flex items-center justify-between print:hidden border-b border-slate-800">
+        <div className="bg-[#0B0F19] text-white px-4 sm:px-6 py-3 sm:py-3.5 flex items-center justify-between print:hidden border-b border-slate-800 shrink-0">
           <div className="flex items-center space-x-2">
             <Receipt className="w-4 h-4 text-amber-400" />
             <span className="font-semibold text-xs tracking-wide">Official Fee Voucher</span>
@@ -50,7 +50,7 @@ export default function FeeReceiptModal({ isOpen, onClose, student }) {
         </div>
 
         {/* Printable Receipt Paper */}
-        <div className="p-6 sm:p-8 bg-white text-slate-900 font-sans printable-fee-receipt">
+        <div className="p-4 sm:p-8 bg-white text-slate-900 font-sans printable-fee-receipt overflow-y-auto flex-1">
           
           {/* Header */}
           <div className="border-b-2 border-slate-900 pb-4 mb-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
