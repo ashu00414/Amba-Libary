@@ -87,8 +87,17 @@ export default function FeeReceiptModal({ isOpen, onClose, student }) {
           {/* Student & Desk Details Grid */}
           <div className="bg-slate-50 rounded-xl p-4 border border-slate-200/80 mb-5 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             <div>
-              <span className="text-slate-400 font-medium uppercase text-[10px] tracking-wider block">Student Record</span>
-              <p className="text-sm font-bold text-slate-900 mt-0.5">{student.name}</p>
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <span className="text-slate-400 font-medium uppercase text-[10px] tracking-wider block">Student Record</span>
+                  <p className="text-sm font-bold text-slate-900 mt-0.5">{student.name}</p>
+                </div>
+                {student.photo && (
+                  <div className="w-12 h-12 rounded-lg border border-slate-300 overflow-hidden shrink-0 shadow-2xs">
+                    <img src={student.photo} alt={student.name} className="w-full h-full object-cover" />
+                  </div>
+                )}
+              </div>
               <div className="mt-1 space-y-0.5 text-slate-600">
                 <p><span className="text-slate-400">ID:</span> <span className="font-mono font-bold text-slate-800">{student.id}</span></p>
                 <p><span className="text-slate-400">Mobile:</span> <span className="font-mono font-medium text-slate-800">{student.mobile}</span></p>

@@ -361,8 +361,12 @@ export default function StudentDashboard({ studentUser, onBackToLanding, onLogou
             
             {/* Student ID Info */}
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-xl text-slate-700 shrink-0 shadow-2xs">
-                {currentStudent.name?.charAt(0) || 'S'}
+              <div className="w-16 h-16 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-xl text-slate-700 shrink-0 shadow-2xs overflow-hidden">
+                {currentStudent.photo ? (
+                  <img src={currentStudent.photo} alt={currentStudent.name} className="w-full h-full object-cover" />
+                ) : (
+                  currentStudent.name?.charAt(0) || 'S'
+                )}
               </div>
               <div>
                 <div className="flex items-center space-x-2">
