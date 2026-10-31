@@ -997,6 +997,13 @@ export function saveFeedback(feedback) {
   return entry;
 }
 
+export function deleteFeedback(fbId) {
+  const feedbacks = getStoredFeedbacks();
+  const updated = feedbacks.filter(f => f.id !== fbId);
+  saveStoredFeedbacks(updated);
+  return updated;
+}
+
 // Authenticate student by email OR mobile + password
 export function authenticateStudent(identifier, password) {
   const students = getStoredStudents();

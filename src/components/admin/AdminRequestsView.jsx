@@ -18,7 +18,8 @@ import {
   approveShiftRequest, 
   rejectShiftRequest, 
   holdShiftRequest, 
-  allotShiftRequest 
+  allotShiftRequest,
+  deleteFeedback 
 } from '../../data/libraryStore';
 
 export default function AdminRequestsView({
@@ -32,6 +33,11 @@ export default function AdminRequestsView({
 
   const handleFeeChange = (reqId, value) => {
     setFeeOverrides(prev => ({ ...prev, [reqId]: value }));
+  };
+
+  const handleDeleteFeedback = (fbId) => {
+    deleteFeedback(fbId);
+    if (onDataUpdated) onDataUpdated();
   };
 
   const handleHold = (reqId) => {
@@ -414,7 +420,15 @@ export default function AdminRequestsView({
                     "{fb.message}"
                   </p>
 
-                  <div className="flex justify-end pt-1">
+                  <div className="flex items-center justify-end gap-2 pt-1">
+                    <button
+                      onClick={() => handleDeleteFeedback(fb.id)}
+                      className="px-3 py-1.5 bg-slate-100 hover:bg-rose-50 text-slate-500 hover:text-rose-600 rounded-lg text-xs font-semibold flex items-center space-x-1 transition-colors cursor-pointer"
+                      title="Delete this message"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      <span>Delete</span>
+                    </button>
                     <a
                       href={`mailto:${fb.email}?subject=${encodeURIComponent('Re: ' + (fb.subject || 'Inquiry - Amba Library'))}`}
                       className="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold flex items-center space-x-1.5 transition-colors"
