@@ -939,10 +939,10 @@ export default function StudentDashboard({ studentUser, onBackToLanding, onLogou
                               type="button"
                               onClick={() => handleRequestAddShift(selectedSeatDetails.seatNumber, shift.name, shift.id)}
                               className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-2.5 py-1.5 rounded-lg text-xs transition-colors flex items-center space-x-1 cursor-pointer shadow-2xs"
-                              title={`Add ${shift.name} to your schedule. Total fee will update to ₹${calculateShiftsFee([...(currentStudent.shifts || []), shift.id], false, mode)}/month`}
+                              title={`Add ${shift.name} to your schedule`}
                             >
                               <PlusCircle className="w-3.5 h-3.5" />
-                              <span>+ Add Shift (+₹600)</span>
+                              <span>+ Add Shift</span>
                             </button>
 
                             {/* Option 2: Switch to this shift only (transfer) */}
@@ -950,7 +950,7 @@ export default function StudentDashboard({ studentUser, onBackToLanding, onLogou
                               type="button"
                               onClick={() => handleRequestSwitchShift(selectedSeatDetails.seatNumber, shift.name, shift.id)}
                               className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-2 py-1.5 rounded-lg text-xs transition-colors cursor-pointer border border-slate-200"
-                              title={`Switch to ${shift.name} only (Fee: ₹600/month)`}
+                              title={`Switch to ${shift.name} only`}
                             >
                               <span>Switch Only</span>
                             </button>
@@ -964,7 +964,7 @@ export default function StudentDashboard({ studentUser, onBackToLanding, onLogou
                           className="bg-slate-900 hover:bg-slate-800 text-white font-medium px-3 py-1.5 rounded-lg text-xs transition-colors flex items-center space-x-1.5 cursor-pointer shadow-xs"
                         >
                           <Send className="w-3 h-3 text-amber-400" />
-                          <span>Request Shift (₹600/mo)</span>
+                          <span>Request Shift</span>
                         </button>
                       );
                     })()}
