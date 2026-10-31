@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, CheckCircle2, AlertCircle, Clock, User, Phone, 
   CheckSquare, Square, Trash2, ArrowRight, Sunrise, Sun, 
@@ -25,6 +25,18 @@ export default function SeatDetailModal({
 }) {
   const [selectedShifts, setSelectedShifts] = useState([]);
   const [isFullDaySelected, setIsFullDaySelected] = useState(false);
+
+  // Automatically reset shift selection whenever modal opens or changes desk/mode
+  useEffect(() => {
+    setSelectedShifts([]);
+    setIsFullDaySelected(false);
+  }, [isOpen, seat?.seatNumber, mode]);
+
+  const handleClose = () => {
+    setSelectedShifts([]);
+    setIsFullDaySelected(false);
+    if (onClose) onClose();
+  };
 
   if (!isOpen || !seat) return null;
 
@@ -98,7 +110,10 @@ export default function SeatDetailModal({
   const formattedDeskNum = seat.seatNumber < 10 ? `0${seat.seatNumber}` : seat.seatNumber;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto animate-in fade-in duration-150">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto animate-in fade-in duration-150"
+      onClick={handleClose}
+    >
       <div 
         className="relative w-full max-w-xl bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200/90 my-2 sm:my-8 max-h-[96vh] sm:max-h-[90vh] flex flex-col animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
@@ -126,7 +141,7 @@ export default function SeatDetailModal({
             </div>
           </div>
           <button 
-            onClick={onClose}
+            onClick={handleClose}
             className="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-400 hover:text-white transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
@@ -327,7 +342,7 @@ export default function SeatDetailModal({
 
           <div className="flex items-center space-x-2">
             <button
-              onClick={onClose}
+              onClick={handleClose}
               className="px-3.5 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer"
             >
               Cancel
@@ -335,10 +350,13 @@ export default function SeatDetailModal({
             <button
               disabled={selectedShifts.length === 0}
               onClick={() => {
+                const shiftsToForward = [...selectedShifts];
+                setSelectedShifts([]);
+                setIsFullDaySelected(false);
                 onOpenAllotment({
                   seatNumber: seat.seatNumber,
                   mode,
-                  shifts: selectedShifts
+                  shifts: shiftsToForward
                 });
               }}
               className={`px-4 py-2 rounded-lg text-xs font-semibold flex items-center space-x-1.5 transition-all ${

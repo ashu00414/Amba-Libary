@@ -631,28 +631,31 @@ export default function AdminSeatManagement({ onLogout }) {
       </div>
 
       {/* MODAL 1: Desk Allocation & Shift Breakdown Inspector */}
-      <SeatDetailModal
-        isOpen={!!activeSeatModal}
-        onClose={() => setActiveSeatModal(null)}
-        seat={activeSeatModal}
-        mode={mode}
-        students={students}
-        onViewStudent={(student) => {
-          setViewStudentModal(student);
-        }}
-        onOpenAllotment={(allotmentData) => {
-          setActiveSeatModal(null);
-          setAllotmentModalData(allotmentData);
-        }}
-        onDataChanged={() => {
-          reloadData();
-          if (activeSeatModal) {
-            const updatedSeats = getStoredSeats();
-            const fresh = updatedSeats.find(s => s.seatNumber === activeSeatModal.seatNumber);
-            setActiveSeatModal(fresh);
-          }
-        }}
-      />
+      {activeSeatModal && (
+        <SeatDetailModal
+          key={`seat-detail-${activeSeatModal.seatNumber}-${mode}`}
+          isOpen={!!activeSeatModal}
+          onClose={() => setActiveSeatModal(null)}
+          seat={activeSeatModal}
+          mode={mode}
+          students={students}
+          onViewStudent={(student) => {
+            setViewStudentModal(student);
+          }}
+          onOpenAllotment={(allotmentData) => {
+            setActiveSeatModal(null);
+            setAllotmentModalData(allotmentData);
+          }}
+          onDataChanged={() => {
+            reloadData();
+            if (activeSeatModal) {
+              const updatedSeats = getStoredSeats();
+              const fresh = updatedSeats.find(s => s.seatNumber === activeSeatModal.seatNumber);
+              setActiveSeatModal(fresh);
+            }
+          }}
+        />
+      )}
 
       {/* MODAL 2: Student Allotment & Registration Form */}
       {allotmentModalData && (
