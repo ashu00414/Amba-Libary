@@ -39,6 +39,7 @@ import StudentAllotmentModal from './StudentAllotmentModal';
 import FeeReceiptModal from './FeeReceiptModal';
 import AdminProfileModal from './AdminProfileModal';
 import EditStudentModal from './EditStudentModal';
+import logoImg from '../assets/logo.png';
 
 export default function AdminSeatManagement({ onLogout }) {
   const [seats, setSeats] = useState(() => getStoredSeats());
@@ -672,9 +673,14 @@ export default function AdminSeatManagement({ onLogout }) {
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-white rounded-2xl max-w-md w-full p-4 sm:p-6 shadow-xl border border-slate-200 animate-in zoom-in-95 duration-200 max-h-[94vh] overflow-y-auto flex flex-col">
             <div className="flex items-center justify-between border-b pb-3 mb-4">
-              <div className="flex items-center space-x-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <h4 className="font-bold text-sm text-slate-900">Official Student Pass &amp; Identity</h4>
+              <div className="flex items-center space-x-2.5">
+                <div className="w-8 h-8 rounded-full bg-white border border-slate-200 overflow-hidden shadow-xs flex items-center justify-center p-0.5 shrink-0">
+                  <img src={logoImg} alt="Amba Logo" className="w-full h-full object-contain" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-sm text-slate-900 leading-tight">AMBA LIBRARY</h4>
+                  <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Official Student Pass & Identity</p>
+                </div>
               </div>
               <button 
                 type="button"

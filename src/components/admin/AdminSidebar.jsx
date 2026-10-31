@@ -100,7 +100,7 @@ export default function AdminSidebar({
         <div>
           <div className="h-20 px-4 flex items-center justify-between border-b border-slate-800/80 bg-[#090D15]/80 backdrop-blur-md">
             <div className="flex items-center space-x-3 overflow-hidden">
-              <div className="w-10 h-10 rounded-xl bg-white p-1 border border-slate-700 shadow-sm flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-full bg-white p-0.5 border border-slate-700 shadow-sm flex items-center justify-center shrink-0 overflow-hidden">
                 <img src={logoImg} alt="Amba Logo" className="w-full h-full object-contain" />
               </div>
               {(!isCollapsed || isMobileOpen) && (

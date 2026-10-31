@@ -17,7 +17,7 @@ export default function Navbar({
         
         {/* Brand / Logo on Left with Official Image */}
         <a href="#home" className="flex items-center space-x-2.5 sm:space-x-3 group cursor-pointer">
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white border border-slate-200 shadow-xs flex items-center justify-center p-1 group-hover:border-slate-300 transition-colors shrink-0">
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white border border-slate-200 shadow-xs flex items-center justify-center p-0.5 group-hover:border-slate-300 transition-colors shrink-0 overflow-hidden">
             <img 
               src={logoImg} 
               alt="Amba Library Logo" 

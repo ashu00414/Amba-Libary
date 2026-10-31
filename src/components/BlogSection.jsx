@@ -405,7 +405,7 @@ export default function BlogSection({ onOpenStudentLogin }) {
             {/* Modal Top Bar */}
             <div className="px-6 py-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 rounded-lg bg-white p-0.5 flex items-center justify-center overflow-hidden">
+                <div className="w-9 h-9 rounded-full bg-white p-0.5 flex items-center justify-center overflow-hidden shrink-0 shadow-xs">
                   <img src={logoImg} alt="Amba Logo" className="w-full h-full object-contain" />
                 </div>
                 <div>

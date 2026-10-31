@@ -246,7 +246,7 @@ export default function StudentDashboard({ studentUser, onBackToLanding, onLogou
         <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3 flex items-center justify-between gap-4">
           
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 rounded-xl bg-white border border-slate-700/80 p-0.5 shadow-xs flex items-center justify-center overflow-hidden">
+            <div className="w-10 h-10 rounded-full bg-white border border-slate-700/80 p-0.5 shadow-xs flex items-center justify-center overflow-hidden shrink-0">
               <img src={logoImg} alt="Amba Library Logo" className="w-full h-full object-contain" />
             </div>
             <div>

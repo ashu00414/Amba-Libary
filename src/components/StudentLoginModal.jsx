@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, User, Phone, Lock, AlertCircle, CheckCircle2, ArrowRight } from 'lucide-react';
 import { authenticateStudent } from '../data/libraryStore';
+import logoImg from '../assets/logo.png';
 
 export default function StudentLoginModal({ isOpen, onClose, onLoginSuccess }) {
   const [studentIdentifier, setStudentIdentifier] = useState('');
@@ -44,8 +45,8 @@ export default function StudentLoginModal({ isOpen, onClose, onLoginSuccess }) {
         {/* Header Ribbon */}
         <div className="bg-[#0B0F19] px-6 py-4 text-white flex items-center justify-between border-b border-slate-800">
           <div className="flex items-center space-x-3">
-            <div className="w-9 h-9 rounded-xl bg-slate-800 text-amber-400 border border-slate-700 flex items-center justify-center font-bold text-sm shadow-xs">
-              <User className="w-4 h-4" />
+            <div className="w-9 h-9 rounded-full bg-white p-0.5 border border-slate-700 flex items-center justify-center shadow-xs overflow-hidden shrink-0">
+              <img src={logoImg} alt="Amba Logo" className="w-full h-full object-contain" />
             </div>
             <div>
               <h3 className="font-bold text-base leading-tight tracking-tight">Student Portal Sign In</h3>

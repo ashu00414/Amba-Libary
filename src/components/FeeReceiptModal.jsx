@@ -55,7 +55,7 @@ export default function FeeReceiptModal({ isOpen, onClose, student }) {
           {/* Header */}
           <div className="border-b-2 border-slate-900 pb-4 mb-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 rounded-xl bg-white text-slate-900 flex items-center justify-center p-1 border border-slate-300 shadow-xs overflow-hidden">
+              <div className="w-14 h-14 rounded-full bg-white text-slate-900 flex items-center justify-center p-0.5 border border-slate-300 shadow-xs overflow-hidden shrink-0">
                 <img src={logoImg} alt="Amba Library Logo" className="w-full h-full object-contain" />
               </div>
               <div>
