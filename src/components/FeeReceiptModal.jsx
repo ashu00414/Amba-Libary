@@ -102,7 +102,8 @@ export default function FeeReceiptModal({ isOpen, onClose, student }) {
                 <p><span className="text-slate-400">ID:</span> <span className="font-mono font-bold text-slate-800">{student.id}</span></p>
                 <p><span className="text-slate-400">Mobile:</span> <span className="font-mono font-medium text-slate-800">{student.mobile}</span></p>
                 <p><span className="text-slate-400">Aadhar:</span> <span className="font-mono text-slate-700">{student.aadhar || 'Verified'}</span></p>
-                <p><span className="text-slate-400">Parent:</span> <span className="text-slate-700">{student.fatherName || 'On record'}</span></p>
+                <p><span className="text-slate-400">Parent:</span> <span className="text-slate-700">{student.fatherName && student.fatherName !== '...' ? student.fatherName : 'On record'}</span></p>
+                {student.address && <p><span className="text-slate-400">Address:</span> <span className="text-slate-700">{student.address}</span></p>}
               </div>
             </div>
 

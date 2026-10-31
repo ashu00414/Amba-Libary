@@ -4,7 +4,7 @@ import {
   LogOut, Sun, Moon, Sunrise, Sunset, Share2, HelpCircle, 
   Send, AlertCircle, Phone, Mail, FileText, Users,
   Receipt, Printer, CreditCard, ShieldCheck, Check, X,
-  ArrowRight, PlusCircle
+  ArrowRight, PlusCircle, MapPin
 } from 'lucide-react';
 import { 
   getStoredSeats, 
@@ -419,7 +419,7 @@ export default function StudentDashboard({ studentUser, onBackToLanding, onLogou
 
           </div>
 
-          {/* Student Profile Metadata (Admission Date, Parents, Aadhar) */}
+          {/* Student Profile Metadata (Admission Date, Parents, Aadhar, Address) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 pt-4 text-xs">
             <div className="p-2.5 bg-slate-50/70 rounded-lg border border-slate-100">
               <span className="text-slate-400 block text-[10px] uppercase font-semibold">Admission Date</span>
@@ -431,13 +431,25 @@ export default function StudentDashboard({ studentUser, onBackToLanding, onLogou
             </div>
             <div className="p-2.5 bg-slate-50/70 rounded-lg border border-slate-100">
               <span className="text-slate-400 block text-[10px] uppercase font-semibold">Father's Name</span>
-              <span className="font-semibold text-slate-800 truncate block">{currentStudent.fatherName || 'Not specified'}</span>
+              <span className="font-semibold text-slate-800 truncate block">
+                {currentStudent.fatherName && currentStudent.fatherName !== '...' ? currentStudent.fatherName : 'Not specified'}
+              </span>
             </div>
             <div className="p-2.5 bg-slate-50/70 rounded-lg border border-slate-100">
               <span className="text-slate-400 block text-[10px] uppercase font-semibold">Mother's Name</span>
-              <span className="font-semibold text-slate-800 truncate block">{currentStudent.motherName || 'Not specified'}</span>
+              <span className="font-semibold text-slate-800 truncate block">
+                {currentStudent.motherName && currentStudent.motherName !== '...' && currentStudent.motherName !== '....' ? currentStudent.motherName : 'Not specified'}
+              </span>
             </div>
           </div>
+
+          {currentStudent.address && (
+            <div className="mt-2.5 px-3 py-2 bg-slate-50/70 rounded-lg border border-slate-100 flex items-center space-x-2 text-xs">
+              <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+              <span className="text-slate-500 font-medium">Address:</span>
+              <span className="text-slate-800 font-medium truncate">{currentStudent.address}</span>
+            </div>
+          )}
 
           {/* Fee & Subscription Status Card with Receipt Download */}
           <div className="mt-4 pt-3.5 border-t border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-slate-50/70 p-3.5 rounded-xl border border-slate-200/70">

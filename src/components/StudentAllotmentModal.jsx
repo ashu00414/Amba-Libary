@@ -3,7 +3,7 @@ import {
   X, User, Phone, Mail, FileText, Lock, Users, Camera, 
   Check, AlertCircle, CheckCircle2, Calendar, DollarSign, 
   CreditCard, Sunrise, Sun, Sunset, Moon, Clock,
-  Upload, RefreshCw, RotateCcw, Trash2
+  Upload, RefreshCw, RotateCcw, Trash2, MapPin
 } from 'lucide-react';
 import { DAY_SHIFTS, NIGHT_SHIFTS, allotStudentToSeat, calculateValidTill } from '../data/libraryStore';
 
@@ -35,6 +35,7 @@ export default function StudentAllotmentModal({
   const [admissionDate, setAdmissionDate] = useState(() => new Date().toISOString().split('T')[0]);
   const [fatherName, setFatherName] = useState('');
   const [motherName, setMotherName] = useState('');
+  const [address, setAddress] = useState('');
   const [password, setPassword] = useState('student123');
 
   // Fee & Subscription state
@@ -223,6 +224,7 @@ export default function StudentAllotmentModal({
           admissionDate,
           fatherName,
           motherName,
+          address: address.trim(),
           password,
           photo: photoPreview || '',
           monthlyFee: Number(monthlyFee) || defaultFee,
@@ -511,6 +513,21 @@ export default function StudentAllotmentModal({
                   required
                 />
               </div>
+            </div>
+          </div>
+
+          {/* Residential / Permanent Address */}
+          <div className="pt-2 border-t border-slate-100">
+            <label className="block text-xs font-semibold text-slate-700 mb-1">Residential / Local Address</label>
+            <div className="relative">
+              <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+              <input
+                type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="Village / Mohalla / Ward, Street, City, State, PIN"
+                className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white text-slate-800"
+              />
             </div>
           </div>
 

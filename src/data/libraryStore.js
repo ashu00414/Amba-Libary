@@ -276,6 +276,7 @@ export function migrateStudentFeeFields(st) {
 
   return {
     ...st,
+    address: st.address || '',
     admissionDate: admDate,
     monthlyFee,
     planMonths,
@@ -504,6 +505,7 @@ export function allotStudentToSeat({
   const studentRecord = {
     id: newStudentId,
     ...studentData,
+    address: studentData.address || '',
     seatNumber,
     mode,
     shifts: shiftIds,
@@ -589,6 +591,44 @@ export function updateStudentFeeStatus(studentId, feeStatus) {
   }
   saveStoredStudents(students);
   return students[index];
+}
+
+// Update complete student record details (Name, Contact, Address, Parents, Password, Fee, Photo, etc.)
+export function updateStudentRecord(studentId, updatedFields) {
+  const students = getStoredStudents();
+  const index = students.findIndex(s => s.id === studentId);
+  if (index === -1) throw new Error('Student not found in database');
+
+  const existing = students[index];
+  const updatedStudent = {
+    ...existing,
+    ...updatedFields,
+    id: existing.id, // Immutable ID
+    updatedAt: new Date().toISOString()
+  };
+
+  // Ensure monthlyFee is a number if provided
+  if (updatedFields.monthlyFee !== undefined && updatedFields.monthlyFee !== '') {
+    updatedStudent.monthlyFee = Number(updatedFields.monthlyFee);
+  }
+
+  students[index] = updatedStudent;
+  saveStoredStudents(students);
+
+  // Sync active session if logged in as this student
+  try {
+    const currentSession = getStoredSession();
+    if (currentSession && currentSession.user && currentSession.user.id === studentId) {
+      saveStoredSession({
+        ...currentSession,
+        user: { ...updatedStudent, role: 'student' }
+      });
+    }
+  } catch (err) {
+    console.error('Session sync error on student update:', err);
+  }
+
+  return updatedStudent;
 }
 
 // Cancel / Deallocate a shift
