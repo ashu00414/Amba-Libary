@@ -1,6 +1,7 @@
 import React from 'react';
 import { User, ArrowRight } from 'lucide-react';
 import NightStudyAnimation from './NightStudyAnimation';
+import logoImg from '../assets/amba_official_logo.png';
 
 export default function Hero({ onOpenStudentLogin }) {
   return (
@@ -25,6 +26,23 @@ export default function Hero({ onOpenStudentLogin }) {
           {/* Left Column: AMBA LIBRARY Branding, Quotes, and ONLY Student Login */}
           <div className="lg:col-span-5 z-10 space-y-6 sm:space-y-7 text-left">
             
+            {/* Official Logo Emblem Badge */}
+            <div className="flex items-center space-x-3.5">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white shadow-lg border-2 border-amber-300/80 p-1 flex items-center justify-center shrink-0 ring-4 ring-amber-100/60">
+                <img 
+                  src={logoImg} 
+                  alt="Amba Library Official Emblem" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div>
+                <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-amber-700 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
+                  Official Institute Emblem
+                </span>
+                <p className="text-[11px] text-slate-400 font-medium mt-1">Knowledge &amp; Growth</p>
+              </div>
+            </div>
+
             {/* Title: AMBA LIBRARY */}
             <div className="space-y-1">
               <h1 className="text-5xl sm:text-7xl lg:text-[84px] font-black text-[#1C1935] tracking-tight leading-[0.98] font-heading">

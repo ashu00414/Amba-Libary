@@ -1,7 +1,7 @@
 import React from 'react';
 import { X, Printer, CheckCircle2, ShieldCheck, Calendar, Phone, Mail, User, BookOpen, Clock, Download, Receipt } from 'lucide-react';
 import { DAY_SHIFTS, NIGHT_SHIFTS } from '../data/libraryStore';
-import logoImg from '../assets/logo.png';
+import logoImg from '../assets/amba_official_logo.png';
 
 export default function FeeReceiptModal({ isOpen, onClose, student }) {
   if (!isOpen || !student) return null;

@@ -16,7 +16,7 @@ import {
   Activity,
   Award
 } from 'lucide-react';
-import logoImg from '../assets/logo.png';
+import logoImg from '../assets/amba_official_logo.png';
 
 const BLOG_POSTS = [
   {

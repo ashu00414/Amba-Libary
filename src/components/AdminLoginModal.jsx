@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X, ShieldCheck, Lock, Mail, AlertCircle, CheckCircle2, ArrowRight } from 'lucide-react';
 import { authenticateAdmin } from '../data/libraryStore';
-import logoImg from '../assets/logo.png';
+import logoImg from '../assets/amba_official_logo.png';
 
 export default function AdminLoginModal({ isOpen, onClose, onLoginSuccess }) {
   const [adminUser, setAdminUser] = useState('');

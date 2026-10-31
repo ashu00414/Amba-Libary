@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X, User, Phone, Lock, AlertCircle, CheckCircle2, ArrowRight } from 'lucide-react';
 import { authenticateStudent } from '../data/libraryStore';
-import logoImg from '../assets/logo.png';
+import logoImg from '../assets/amba_official_logo.png';
 
 export default function StudentLoginModal({ isOpen, onClose, onLoginSuccess }) {
   const [studentIdentifier, setStudentIdentifier] = useState('');

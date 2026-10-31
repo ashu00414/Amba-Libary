@@ -23,7 +23,7 @@ import {
   DAY_SHIFTS, 
   NIGHT_SHIFTS 
 } from '../data/libraryStore';
-import logoImg from '../assets/logo.png';
+import logoImg from '../assets/amba_official_logo.png';
 import FeeReceiptModal from './FeeReceiptModal';
 
 export default function StudentDashboard({ studentUser, onBackToLanding, onLogout }) {

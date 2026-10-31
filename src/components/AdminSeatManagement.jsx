@@ -39,7 +39,7 @@ import StudentAllotmentModal from './StudentAllotmentModal';
 import FeeReceiptModal from './FeeReceiptModal';
 import AdminProfileModal from './AdminProfileModal';
 import EditStudentModal from './EditStudentModal';
-import logoImg from '../assets/logo.png';
+import logoImg from '../assets/amba_official_logo.png';
 
 export default function AdminSeatManagement({ onLogout }) {
   const [seats, setSeats] = useState(() => getStoredSeats());

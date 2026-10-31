@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Shield, User, LogOut, Menu, X, MessageSquareQuote } from 'lucide-react';
-import logoImg from '../assets/logo.png';
+import logoImg from '../assets/amba_official_logo.png';
 
 export default function Navbar({ 
   onOpenAdminLogin, 
