@@ -35,7 +35,14 @@ export default function StudentAllotmentModal({
   const [admissionDate, setAdmissionDate] = useState(() => new Date().toISOString().split('T')[0]);
   const [fatherName, setFatherName] = useState('');
   const [motherName, setMotherName] = useState('');
-  const [address, setAddress] = useState('');
+  
+  // Detailed Address State
+  const [villageOrStreet, setVillageOrStreet] = useState('');
+  const [landmarkOrPS, setLandmarkOrPS] = useState('');
+  const [districtOrCity, setDistrictOrCity] = useState('');
+  const [stateName, setStateName] = useState('Bihar');
+  const [pinCode, setPinCode] = useState('');
+
   const [password, setPassword] = useState('student123');
 
   // Fee & Subscription state
@@ -199,6 +206,13 @@ export default function StudentAllotmentModal({
     }
   };
 
+  const formattedAddress = [
+    villageOrStreet.trim(),
+    landmarkOrPS.trim() ? `P.O./P.S.: ${landmarkOrPS.trim()}` : '',
+    districtOrCity.trim() ? `Dist: ${districtOrCity.trim()}` : '',
+    stateName.trim() ? (pinCode.trim() ? `${stateName.trim()} - ${pinCode.trim()}` : stateName.trim()) : pinCode.trim()
+  ].filter(Boolean).join(', ');
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
@@ -210,6 +224,8 @@ export default function StudentAllotmentModal({
     if (!admissionDate) return setError('Please select an admission date');
     if (!fatherName.trim()) return setError("Please enter Father's name");
     if (!motherName.trim()) return setError("Please enter Mother's name");
+    if (!villageOrStreet.trim()) return setError('Please enter Village / Mohalla / Street in Address Details');
+    if (!districtOrCity.trim()) return setError('Please enter City / District in Address Details');
     if (!password.trim()) return setError('Please provide a student login password');
 
     setIsSubmitting(true);
@@ -224,7 +240,14 @@ export default function StudentAllotmentModal({
           admissionDate,
           fatherName,
           motherName,
-          address: address.trim(),
+          address: formattedAddress,
+          addressDetails: {
+            street: villageOrStreet.trim(),
+            landmark: landmarkOrPS.trim(),
+            city: districtOrCity.trim(),
+            state: stateName.trim(),
+            pincode: pinCode.trim()
+          },
           password,
           photo: photoPreview || '',
           monthlyFee: Number(monthlyFee) || defaultFee,
@@ -516,19 +539,88 @@ export default function StudentAllotmentModal({
             </div>
           </div>
 
-          {/* Residential / Permanent Address */}
-          <div className="pt-2 border-t border-slate-100">
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Residential / Local Address</label>
-            <div className="relative">
-              <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
-              <input
-                type="text"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder="Village / Mohalla / Ward, Street, City, State, PIN"
-                className="w-full pl-9 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white text-slate-800"
-              />
+          {/* Residential / Permanent Address Details */}
+          <div className="p-3.5 bg-slate-50/80 rounded-xl border border-slate-200/90 space-y-2.5">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold text-slate-800 flex items-center space-x-1.5">
+                <MapPin className="w-4 h-4 text-amber-600" />
+                <span>Residential / Permanent Address Details *</span>
+              </label>
+              <span className="text-[10px] text-slate-400 uppercase font-semibold">Address on Record</span>
             </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+              <div>
+                <label className="block font-medium text-slate-700 mb-1">Village / Mohalla / Ward / Street *</label>
+                <input
+                  type="text"
+                  value={villageOrStreet}
+                  onChange={(e) => setVillageOrStreet(e.target.value)}
+                  placeholder="e.g. Vill - Rampur, Ward #04"
+                  className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 text-slate-800"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block font-medium text-slate-700 mb-1">Post Office (P.O.) / Police Station (P.S.)</label>
+                <input
+                  type="text"
+                  value={landmarkOrPS}
+                  onChange={(e) => setLandmarkOrPS(e.target.value)}
+                  placeholder="e.g. P.O. - Barh, Near Kali Mandir"
+                  className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 text-slate-800"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+              <div>
+                <label className="block font-medium text-slate-700 mb-1">District / City *</label>
+                <input
+                  type="text"
+                  value={districtOrCity}
+                  onChange={(e) => setDistrictOrCity(e.target.value)}
+                  placeholder="e.g. Patna / Gaya"
+                  className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 text-slate-800"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block font-medium text-slate-700 mb-1">State *</label>
+                <input
+                  type="text"
+                  value={stateName}
+                  onChange={(e) => setStateName(e.target.value)}
+                  placeholder="e.g. Bihar"
+                  className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 text-slate-800 font-medium"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block font-medium text-slate-700 mb-1">PIN Code (6 Digits)</label>
+                <input
+                  type="text"
+                  maxLength={6}
+                  value={pinCode}
+                  onChange={(e) => setPinCode(e.target.value.replace(/\D/g, ''))}
+                  placeholder="e.g. 803213"
+                  className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 text-slate-800 font-mono"
+                />
+              </div>
+            </div>
+
+            {formattedAddress && (
+              <div className="p-2 bg-amber-50/70 rounded-lg border border-amber-200/70 text-[11px] text-amber-900 flex items-start space-x-1.5">
+                <MapPin className="w-3.5 h-3.5 text-amber-700 shrink-0 mt-0.5" />
+                <div className="leading-snug">
+                  <span className="font-semibold text-amber-950">Formatted Address: </span>
+                  <span>{formattedAddress}</span>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Fee & Subscription Plan Details */}

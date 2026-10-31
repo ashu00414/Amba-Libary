@@ -467,6 +467,7 @@ export default function AdminSeatManagement({ onLogout }) {
                         <th className="py-3 px-4">Desk / Slot</th>
                         <th className="py-3 px-4">Admission Date</th>
                         <th className="py-3 px-4">Contact</th>
+                        <th className="py-3 px-4">Address Details</th>
                         <th className="py-3 px-4">Aadhar Card</th>
                         <th className="py-3 px-4">Parents</th>
                         <th className="py-3 px-4">Credentials</th>
@@ -512,12 +513,15 @@ export default function AdminSeatManagement({ onLogout }) {
                           <td className="py-3 px-4">
                             <div className="font-mono text-slate-800 font-medium">{st.mobile}</div>
                             <div className="text-slate-400 text-[10px]">{st.email}</div>
-                            {st.address && (
-                              <div className="text-slate-500 text-[10px] flex items-center space-x-1 mt-0.5 max-w-[170px]" title={st.address}>
-                                <MapPin className="w-2.5 h-2.5 text-slate-400 shrink-0" />
-                                <span className="truncate">{st.address}</span>
-                              </div>
-                            )}
+                          </td>
+
+                          <td className="py-3 px-4 text-xs">
+                            <div className="flex items-start space-x-1.5 max-w-[200px]" title={st.address}>
+                              <MapPin className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
+                              <span className="text-slate-700 font-medium leading-snug line-clamp-2">
+                                {st.address ? st.address : <span className="text-slate-400 italic font-normal">Not provided</span>}
+                              </span>
+                            </div>
                           </td>
 
                           <td className="py-3 px-4 font-mono text-slate-600">
@@ -724,9 +728,9 @@ export default function AdminSeatManagement({ onLogout }) {
                 <span className="text-slate-500">Aadhar Card:</span>
                 <span className="font-mono text-slate-700">{viewStudentModal.aadhar || 'Verified on file'}</span>
               </div>
-              <div className="flex justify-between py-1 border-b border-slate-200/60">
-                <span className="text-slate-500">Address:</span>
-                <span className="text-slate-800 text-right max-w-[210px] truncate" title={viewStudentModal.address}>
+              <div className="flex justify-between items-start py-1.5 border-b border-slate-200/60">
+                <span className="text-slate-500 shrink-0">Address:</span>
+                <span className="text-slate-800 text-right max-w-[240px] leading-tight font-medium" title={viewStudentModal.address}>
                   {viewStudentModal.address || 'On file'}
                 </span>
               </div>

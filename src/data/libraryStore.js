@@ -277,6 +277,7 @@ export function migrateStudentFeeFields(st) {
   return {
     ...st,
     address: st.address || '',
+    addressDetails: st.addressDetails || null,
     admissionDate: admDate,
     monthlyFee,
     planMonths,
@@ -506,6 +507,7 @@ export function allotStudentToSeat({
     id: newStudentId,
     ...studentData,
     address: studentData.address || '',
+    addressDetails: studentData.addressDetails || null,
     seatNumber,
     mode,
     shifts: shiftIds,
