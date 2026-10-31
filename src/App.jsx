@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import FeedbackSection from './components/FeedbackSection';
@@ -7,7 +7,7 @@ import StudentLoginModal from './components/StudentLoginModal';
 import RoleBanner from './components/RoleBanner';
 import AdminSeatManagement from './components/AdminSeatManagement';
 import StudentDashboard from './components/StudentDashboard';
-import { getStoredSession, saveStoredSession, clearStoredSession } from './data/libraryStore';
+import { getStoredSession, saveStoredSession, clearStoredSession, initCloudSync } from './data/libraryStore';
 import { X, MapPin, Phone, Mail, Clock, CheckCircle2, BookOpen, PhoneCall } from 'lucide-react';
 import logoImg from './assets/logo.png';
 
@@ -21,6 +21,11 @@ export default function App() {
   const [session] = useState(() => getStoredSession());
   const [currentUser, setCurrentUser] = useState(session.user);
   const [currentView, setCurrentView] = useState(session.view);
+
+  // Initialize Real-Time Cloud Sync
+  useEffect(() => {
+    initCloudSync();
+  }, []);
 
   const handleLoginSuccess = (user) => {
     const nextView = user.role === 'admin' ? 'admin_console' : 'student_portal';

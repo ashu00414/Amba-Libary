@@ -73,6 +73,9 @@ export default function StudentDashboard({ studentUser, onBackToLanding, onLogou
 
   useEffect(() => {
     refreshData();
+    const handleSync = () => refreshData();
+    window.addEventListener('amba_data_synced', handleSync);
+    return () => window.removeEventListener('amba_data_synced', handleSync);
   }, []);
 
   const currentShiftList = mode === 'day' ? DAY_SHIFTS : NIGHT_SHIFTS;

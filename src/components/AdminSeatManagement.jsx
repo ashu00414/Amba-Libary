@@ -68,6 +68,9 @@ export default function AdminSeatManagement({ onLogout }) {
 
   useEffect(() => {
     reloadData();
+    const handleSync = () => reloadData();
+    window.addEventListener('amba_data_synced', handleSync);
+    return () => window.removeEventListener('amba_data_synced', handleSync);
   }, []);
 
   // Filtered Seats for Seat Matrix

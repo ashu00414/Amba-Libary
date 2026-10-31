@@ -1,4 +1,15 @@
 // Initializer and LocalStorage manager for 50 Library Seats & Shift Management
+import { 
+  pushSeatsToFirestore, 
+  pushStudentsToFirestore, 
+  removeStudentFromFirestore,
+  pushRequestsToFirestore, 
+  pushFeedbacksToFirestore, 
+  pushAdminProfileToFirestore,
+  initCloudSync 
+} from './firebaseSync';
+
+export { initCloudSync };
 
 const STORAGE_KEY_SEATS = 'amba_lib_seats_v4_clean';
 const STORAGE_KEY_STUDENTS = 'amba_lib_students_v4_clean';
@@ -29,6 +40,7 @@ export function getStoredAdminProfile() {
 export function saveStoredAdminProfile(profile) {
   try {
     localStorage.setItem(STORAGE_KEY_ADMIN, JSON.stringify(profile));
+    pushAdminProfileToFirestore(profile);
   } catch (e) {
     console.error(e);
   }
@@ -234,6 +246,7 @@ export function getStoredSeats() {
 export function saveStoredSeats(seats) {
   try {
     localStorage.setItem(STORAGE_KEY_SEATS, JSON.stringify(seats));
+    pushSeatsToFirestore(seats);
   } catch (e) {
     console.error(e);
   }
@@ -295,6 +308,7 @@ export function getStoredStudents() {
 export function saveStoredStudents(students) {
   try {
     localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify(students));
+    pushStudentsToFirestore(students);
   } catch (e) {
     console.error(e);
   }
@@ -544,6 +558,7 @@ export function deallocateShift({ seatNumber, mode, shiftId }) {
     if (updatedShifts.length === 0) {
       // If student has no shifts left, remove student
       students.splice(studentIndex, 1);
+      removeStudentFromFirestore(studentId);
       // Clean up all requests for this deleted student
       try {
         const rawReqs = localStorage.getItem(STORAGE_KEY_REQUESTS);
@@ -606,6 +621,15 @@ export function getStoredShiftRequests() {
   return [];
 }
 
+export function saveStoredShiftRequests(requests) {
+  try {
+    localStorage.setItem(STORAGE_KEY_REQUESTS, JSON.stringify(requests));
+    pushRequestsToFirestore(requests);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 export function saveShiftRequest(req) {
   const list = getStoredShiftRequests();
   const entry = {
@@ -615,11 +639,7 @@ export function saveShiftRequest(req) {
     createdAt: new Date().toISOString()
   };
   list.unshift(entry);
-  try {
-    localStorage.setItem(STORAGE_KEY_REQUESTS, JSON.stringify(list));
-  } catch (e) {
-    console.error(e);
-  }
+  saveStoredShiftRequests(list);
   return entry;
 }
 
@@ -722,11 +742,7 @@ export function holdShiftRequest(reqId) {
     heldAt: new Date().toISOString()
   };
 
-  try {
-    localStorage.setItem(STORAGE_KEY_REQUESTS, JSON.stringify(requests));
-  } catch (e) {
-    console.error(e);
-  }
+  saveStoredShiftRequests(requests);
 
   return { success: true, updatedRequest: requests[reqIndex] };
 }
@@ -854,11 +870,7 @@ export function approveShiftRequest(reqId, customFee) {
 
   saveStoredSeats(seats);
   saveStoredStudents(students);
-  try {
-    localStorage.setItem(STORAGE_KEY_REQUESTS, JSON.stringify(requests));
-  } catch (e) {
-    console.error(e);
-  }
+  saveStoredShiftRequests(requests);
 
   // 5. Update active student session if logged in
   const currentSession = getStoredSession();
@@ -882,11 +894,7 @@ export function rejectShiftRequest(reqId) {
     status: 'Rejected', 
     rejectedAt: new Date().toISOString() 
   } : r);
-  try {
-    localStorage.setItem(STORAGE_KEY_REQUESTS, JSON.stringify(updated));
-  } catch (e) {
-    console.error(e);
-  }
+  saveStoredShiftRequests(updated);
   return updated;
 }
 
@@ -900,11 +908,7 @@ export function updateShiftRequestStatus(id, newStatus) {
   }
   const list = getStoredShiftRequests();
   const updated = list.map(r => r.id === id ? { ...r, status: newStatus } : r);
-  try {
-    localStorage.setItem(STORAGE_KEY_REQUESTS, JSON.stringify(updated));
-  } catch (e) {
-    console.error(e);
-  }
+  saveStoredShiftRequests(updated);
   return updated;
 }
 
@@ -918,6 +922,15 @@ export function getStoredFeedbacks() {
   return [];
 }
 
+export function saveStoredFeedbacks(feedbacks) {
+  try {
+    localStorage.setItem(STORAGE_KEY_FEEDBACKS, JSON.stringify(feedbacks));
+    pushFeedbacksToFirestore(feedbacks);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 export function saveFeedback(feedback) {
   const list = getStoredFeedbacks();
   const entry = {
@@ -926,11 +939,7 @@ export function saveFeedback(feedback) {
     createdAt: new Date().toISOString()
   };
   list.unshift(entry);
-  try {
-    localStorage.setItem(STORAGE_KEY_FEEDBACKS, JSON.stringify(list));
-  } catch (e) {
-    console.error(e);
-  }
+  saveStoredFeedbacks(list);
   return entry;
 }
 
