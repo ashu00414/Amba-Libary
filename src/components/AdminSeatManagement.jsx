@@ -4,7 +4,7 @@ import {
   CheckCircle2, AlertCircle, PlusCircle, Filter, BookOpen, 
   Layers, Download, RefreshCw, Eye, X, Receipt, CreditCard, 
   Printer, LayoutGrid, LogOut, SlidersHorizontal, ArrowRight,
-  UserCheck, Clock, Check, Bell, Map, ChevronRight, Menu
+  UserCheck, Clock, Check, Bell, Map, ChevronRight, Menu, Trash2
 } from 'lucide-react';
 import { 
   getStoredSeats, 
@@ -12,6 +12,7 @@ import {
   getStoredAdminProfile,
   getStoredShiftRequests,
   getStoredFeedbacks,
+  deleteStudentCompletely,
   saveStoredSession,
   isSeatHasVacancy, 
   getVacantShiftsCount,
@@ -64,6 +65,15 @@ export default function AdminSeatManagement({ onLogout }) {
     setStudents(getStoredStudents());
     setShiftRequests(getStoredShiftRequests());
     setFeedbacks(getStoredFeedbacks());
+  };
+
+  const handleDeleteStudent = (student) => {
+    if (!student) return;
+    const confirmed = window.confirm(`Are you sure you want to completely remove ${student.name} (Desk #${student.seatNumber})? This will free the desk and remove all records.`);
+    if (confirmed) {
+      deleteStudentCompletely(student.id);
+      reloadData();
+    }
   };
 
   useEffect(() => {
@@ -531,6 +541,13 @@ export default function AdminSeatManagement({ onLogout }) {
                               >
                                 <Receipt className="w-3 h-3 text-slate-600" />
                                 <span>Receipt</span>
+                              </button>
+                              <button
+                                onClick={() => handleDeleteStudent(st)}
+                                className="p-1.5 bg-slate-100 hover:bg-rose-50 text-slate-400 hover:text-rose-600 rounded-md transition-colors cursor-pointer border border-transparent hover:border-rose-200"
+                                title={`Delete ${st.name} completely`}
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
                               </button>
                             </div>
                           </td>

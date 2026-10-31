@@ -295,6 +295,25 @@ export function getStoredStudents() {
     if (data) {
       const parsed = JSON.parse(data);
       if (Array.isArray(parsed)) {
+        // Self-healing: if all 50 desks are vacant, no ghost/orphaned students should remain
+        const seatsRaw = localStorage.getItem(STORAGE_KEY_SEATS);
+        if (seatsRaw) {
+          try {
+            const seats = JSON.parse(seatsRaw);
+            const assignedIds = new Set();
+            seats.forEach(s => {
+              if (s.day) Object.values(s.day).filter(Boolean).forEach(id => assignedIds.add(id));
+              if (s.night) Object.values(s.night).filter(Boolean).forEach(id => assignedIds.add(id));
+            });
+            if (assignedIds.size === 0 && parsed.length > 0) {
+              localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify([]));
+              parsed.forEach(st => removeStudentFromFirestore(st.id));
+              return [];
+            }
+          } catch (e) {
+            console.error(e);
+          }
+        }
         return parsed.map(st => migrateStudentFeeFields(st));
       }
     }
@@ -312,6 +331,41 @@ export function saveStoredStudents(students) {
   } catch (e) {
     console.error(e);
   }
+}
+
+// Permanently delete a student and free their desk/shifts
+export function deleteStudentCompletely(studentId) {
+  const students = getStoredStudents();
+  const seats = getStoredSeats();
+
+  // 1. Remove from student records
+  const updatedStudents = students.filter(st => st.id !== studentId);
+
+  // 2. Free any seats / shifts assigned to this student
+  seats.forEach(seat => {
+    if (seat.day) {
+      Object.keys(seat.day).forEach(sId => {
+        if (seat.day[sId] === studentId) seat.day[sId] = null;
+      });
+    }
+    if (seat.night) {
+      Object.keys(seat.night).forEach(sId => {
+        if (seat.night[sId] === studentId) seat.night[sId] = null;
+      });
+    }
+  });
+
+  // 3. Remove shift requests for this student
+  const requests = getStoredShiftRequests();
+  const updatedRequests = requests.filter(r => r.studentId !== studentId);
+
+  // 4. Save locally and sync with Firestore
+  saveStoredSeats(seats);
+  saveStoredStudents(updatedStudents);
+  saveStoredShiftRequests(updatedRequests);
+  removeStudentFromFirestore(studentId);
+
+  return { seats, students: updatedStudents };
 }
 
 // Reset all 50 seats and student records to 100% fresh clean state

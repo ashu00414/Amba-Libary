@@ -176,14 +176,11 @@ export async function initCloudSync() {
       isApplyingCloudUpdate = false;
       notifyDataSynced('students');
     } else {
-      // Seed local students to cloud if any
-      const localStudentsRaw = localStorage.getItem(STORAGE_KEY_STUDENTS);
-      if (localStudentsRaw) {
-        const parsed = JSON.parse(localStudentsRaw);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          pushStudentsToFirestore(parsed);
-        }
-      }
+      // Cloud has 0 students: ensure local cache is clean as well
+      isApplyingCloudUpdate = true;
+      localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify([]));
+      isApplyingCloudUpdate = false;
+      notifyDataSynced('students');
     }
 
     // C. Requests
